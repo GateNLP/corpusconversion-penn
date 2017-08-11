@@ -25,10 +25,10 @@ This has only been tested under Linux.
   called "treebank\_3" which contains a subdirectory "parsed". We will use PENNTB3 as the
   placeholder for the full path to the "treebank\_3" directory below.
 * Change into the corpusconversion-penn directory. This directory should contain a script
-  "convert.sh". Run that script using:
+  "convert-penn-wsj.sh". Run that script using:
 
 ```
-./convert-penn.sh STANF_CORENLP PENN_TB3 OUT
+./convert-penn-wsj.sh STANF_CORENLP PENN_TB3 OUT
 ```
 
 Where STANFCORENLP, PENNTB3, and OUT are replaced with the actual path names as
