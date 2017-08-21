@@ -3,6 +3,7 @@
 corenlp="$1"
 penn="$2"
 out="$3"
+null="$4"
 
 if [ "x$out" == "x" ]
 then
@@ -41,7 +42,8 @@ do
         fname=$(basename "$f")
         dname=$(dirname "$f")
         echo converting to conllx file $fname in $dname
-        java -cp $corenlp/'*' -Xmx1g edu.stanford.nlp.trees.EnglishGrammaticalStructure -basic -keepPunct -conllx -treeFile $f > $tmpdir/${fname}
+        java -cp $corenlp/'*' -Xmx1g edu.stanford.nlp.trees.EnglishGrammaticalStructure -basic -keepPunct -conllx -treeFile $f | \
+	       python ./python/replaceTokens.py $null > $tmpdir/${fname}
         ../corpusconversion-universal-dependencies/convert.sh -n 0 $tmpdir/${fname} $out/$tmpd
         rm $tmpdir/${fname}
       fi

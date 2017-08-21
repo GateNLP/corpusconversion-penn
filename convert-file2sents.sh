@@ -7,7 +7,7 @@ null="$4"
 
 if [ "x$out" == "x" ]
 then
-  echo 'Convert a Penn format document to one GATE document'
+  echo 'Convert a Penn format tree file to GATE documents, one GATE document per sentence'
   echo 'Need 3 parameters: STANF_CORENLP INFILE OUTDIR'
   echo 'STANF_CORENLP: path to extracted StanfordCoreNLP v3.5.1 distribution'
   echo 'INFILE: path to file in Penn tree format'
@@ -30,11 +30,11 @@ then
   exit 1
 fi
 
-        echo converting to conllx file $file
+        echo converting to conllx files ${file}'*'
         fname=$(basename "$file")
         java -cp $corenlp/'*' -Xmx1g edu.stanford.nlp.trees.EnglishGrammaticalStructure -basic -keepPunct -conllx -treeFile $file | \
 	       python ./python/replaceTokens.py $null > $tmpdir/${fname}
-        ../corpusconversion-universal-dependencies/convert.sh -n 0 $tmpdir/${fname} $out
+        ../corpusconversion-universal-dependencies/convert.sh -n 1 $tmpdir/${fname} $out
         rm $tmpdir/${fname}
 
 rm -rf $tmpdir
