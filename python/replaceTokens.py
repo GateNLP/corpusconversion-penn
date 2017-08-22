@@ -13,7 +13,7 @@ if len(sys.argv) > 1 and sys.argv[1] == "null":
 else:
     for line in sys.stdin:
         fields = line.split("\t")
-        if len(fields) > 4 and fields[1] == fields[4]:
+        if len(fields) > 4 and (fields[1] == fields[4] or "-LRB-" == fields[4] or "-RRB-" == fields[4]):
             if fields[1] == "``":
                 fields[1] = '"'
             elif fields[1] == "''":
@@ -22,6 +22,14 @@ else:
                 fields[1] = "("
             elif fields[1] == "-RRB-":
                 fields[1] = ")"
+            elif fields[1] == "-LCB-":
+                fields[1] = "{"
+            elif fields[1] == "-RCB-":
+                fields[1] = "}"
+            elif fields[1] == "-LSB-":
+                fields[1] = "["
+            elif fields[1] == "-RSB-":
+                fields[1] = "]"
             print("\t".join(fields),sep='',end='')
         else:
             print(line,sep='',end='')

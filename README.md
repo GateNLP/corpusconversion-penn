@@ -16,9 +16,12 @@ This has only been tested under Linux.
 
 * clone this repository or download and extract a release zip file
 * clone the [corpusconversion-universal-dependencies](https://github.com/GateNLP/corpusconversion-universal-dependencies) repository into a sibling directory or unzip a release file
-* download the Stanford CoreNLP distribution, version 3.5.1 (stanford-corenlp-full-2015-01-29)
+* download the Stanford CoreNLP distribution
   and extract it. We will STANFCORENLP as the placeholder for the full path to the
   directory containing the extracted CoreNLP distribution below.
+  NOTE: after trying out versions 3.5.1 and 3.8.0 of the CoreNLP distribution on a few
+  Penn wsj files, the only difference seems to be that some UD POS tags and some 
+  dependency labels are better in the output of versions 3.8.0. 
 * create a directory which should contain the files converted into GATE documents.
   We will OUT as the placeholder for the full path to this directory below.
 * Obtain the Penn Treebank 3 distribution and extract it. There should be a directory
@@ -33,6 +36,15 @@ This has only been tested under Linux.
 
 Where STANFCORENLP, PENNTB3, and OUT are replaced with the actual path names as
 per the instructions above.
+
+## Conversion details
+
+The conversion will by default replace the token text placeholders "-LRB-", "-RRB-", "-LCB-", "-RCB-", 
+"-LSB-", and "-RSB-" with "(){}[]". Also replaces all token text placeholders "``" and "''" with just 
+a single double quote character. The actual POS tags remain the same though. 
+
+This replacement can be disabled by adding an additional 4th parameter "null" to the conversion
+script parameters.
 
 ## LICENSES
 

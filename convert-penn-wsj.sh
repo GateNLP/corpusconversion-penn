@@ -11,6 +11,7 @@ then
   echo 'STANF_CORENLP: path to extracted StanfordCoreNLP v3.5.1 distribution'
   echo 'PENN_TB3: path to extracted Penn Treebank v3'
   echo 'OUT: path to empty directory to receive the GATE documents'
+  echo 'optional 4th: if "null" does not replace odd Penn tokens'
   exit 1
 fi
 
