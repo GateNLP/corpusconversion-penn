@@ -16,9 +16,26 @@ then
   exit 1
 fi
 
-if [ ! -d ../corpusconversion-universal-dependencies ]
+PRG="$0"
+CURDIR="`pwd`"
+# need this for relative symlinks
+while [ -h "$PRG" ] ; do
+  ls=`ls -ld "$PRG"`
+  link=`expr "$ls" : '.*-> \(.*\)$'`
+  if expr "$link" : '/.*' > /dev/null; then
+    PRG="$link"
+  else
+    PRG=`dirname "$PRG"`"/$link"
+  fi
+done
+SCRIPTDIR=`dirname "$PRG"`
+S=`cd "$SCRIPTDIR"; pwd -P`
+
+
+
+if [ ! -d ${S}/../corpusconversion-universal-dependencies ]
 then
-  echo 'Could not find ../corpusconversion-universal-dependencies'
+  echo 'Could not find ${S}/../corpusconversion-universal-dependencies'
   exit 1
 fi
 
@@ -33,8 +50,8 @@ fi
         echo converting to conllx file $file
         fname=$(basename "$file")
         java -cp $corenlp/'*' -Xmx1g edu.stanford.nlp.trees.EnglishGrammaticalStructure -basic -keepPunct -conllx -treeFile $file | \
-	       python ./python/replaceTokens.py $null > $tmpdir/${fname}
-        ../corpusconversion-universal-dependencies/convert.sh -n 0 $tmpdir/${fname} $out
+	       python ${S}/python/replaceTokens.py $null > $tmpdir/${fname}
+        ${S}/../corpusconversion-universal-dependencies/convert.sh -n 0 $tmpdir/${fname} $out
         rm $tmpdir/${fname}
 
 rm -rf $tmpdir
